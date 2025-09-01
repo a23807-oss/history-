@@ -1,1 +1,763 @@
-历史主题报告
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <!-- 统一编码，彻底避免乱码 -->
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="慈禧太后一生：生平、年表、评价与图片资料（重构版）。全面修复图片显示与乱码问题，新增图片兜底与无外部依赖图标。" />
+  <title>慈禧太后的一生 · 重构版</title>
+
+  <!-- 预连接可选（不影响离线） -->
+  <link rel="preconnect" href="https://upload.wikimedia.org" />
+
+  <style>
+    @charset "UTF-8";
+
+    /* 全局：使用通用中文字体栈，避免因缺字导致“口口口” */
+    :root {
+      --primary: #8b4513;
+      --secondary: #a86c42;
+      --accent: #b38b6f;
+      --light-bg: #f8f3e9;
+      --card-bg: rgba(255, 249, 242, 0.96);
+      --text: #333;
+      --shadow: 0 6px 20px rgba(0, 0, 0, .12);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--light-bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-synthesis-weight: none;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", Arial, sans-serif;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23b38b6f' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+
+    /* 滚动条 */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1e6dd;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* 顶部导航（移除外部图标库，改为内嵌SVG，杜绝外链失败） */
+    .nav {
+      position: sticky;
+      top: 10px;
+      z-index: 1000;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      justify-content: center;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 16px 16px 28px;
+    }
+
+    .nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.05rem;
+      border-right: 1px solid rgba(255, 255, 255, .22);
+      position: relative;
+    }
+
+    .nav a:last-child {
+      border-right: none;
+    }
+
+    .nav a:hover {
+      background: rgba(255, 255, 255, .16);
+    }
+
+    .nav a.active {
+      background: rgba(255, 255, 255, .26);
+      font-weight: 700;
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+    }
+
+    /* 页面卡片 */
+    .page {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: .45s ease;
+    }
+
+    .page.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card {
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      margin: 0 16px 28px;
+      padding: clamp(18px, 2.5vw, 30px);
+    }
+
+    /* 标题 */
+    h1.title {
+      font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", serif;
+      font-size: clamp(24px, 3.2vw, 36px);
+      color: var(--primary);
+      text-align: center;
+      margin: 0 0 10px;
+      position: relative;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    h1.title::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -2px;
+      transform: translateX(-50%);
+      width: 88px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin: 22px 0 12px;
+      padding-left: 12px;
+      border-left: 5px solid var(--secondary);
+      font-family: "Noto Serif SC", serif;
+    }
+
+    h3 {
+      color: var(--secondary);
+      margin: 18px 0 8px;
+    }
+
+    p {
+      margin: 0 0 12px;
+      text-align: justify;
+      text-indent: 2em;
+    }
+
+    /* 首页英雄区 */
+    .hero {
+      text-align: center;
+    }
+
+    .subtitle {
+      color: var(--secondary);
+      font-style: italic;
+      margin: 6px 0 18px;
+    }
+
+    .hero img {
+      max-width: 100%;
+      height: auto;
+      border: 5px solid #d9c7b8;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    /* 图库 */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .g-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .g-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      border: 3px solid #d9c7b8;
+      border-radius: 8px;
+    }
+
+    .g-cap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, .65);
+      color: #fff;
+      padding: 8px 10px;
+      font-size: .92rem;
+      transform: translateY(100%);
+      transition: transform .28s;
+    }
+
+    .g-item:hover .g-cap {
+      transform: translateY(0);
+    }
+
+    /* 年表 */
+    .timeline {
+      position: relative;
+      margin: 8px 0 4px;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .t-item {
+      position: relative;
+      background: #f9efe3;
+      border-radius: 10px;
+      padding: 16px;
+      margin: 0 0 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .t-item::before {
+      content: "";
+      position: absolute;
+      left: -34px;
+      top: 18px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 4px solid var(--accent);
+    }
+
+    .t-year {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 评价区 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .pos {
+      background: #edf7ed;
+      border: 1px solid #c5e1c5;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .neg {
+      background: #fde9e9;
+      border: 1px solid #f5c6c6;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .grid ul {
+      margin: 8px 0 0 0;
+      padding-left: 18px;
+    }
+
+    .grid li {
+      margin: 6px 0;
+    }
+
+    /* 引用脚注 */
+    .cite {
+      font-size: .85em;
+      vertical-align: super;
+    }
+
+    /* 回到顶部按钮 */
+    .to-top {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--primary);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: .3s ease;
+      z-index: 999;
+    }
+
+    .to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 页脚 */
+    footer {
+      margin: 20px 16px 40px;
+      text-align: center;
+      padding: 16px;
+      color: var(--primary);
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* 响应式 */
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+
+      .nav,
+      .to-top {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      .card {
+        box-shadow: none;
+        background: #fff;
+        break-inside: avoid;
+      }
+
+      footer {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 顶部导航（内嵌SVG图标，避免外链失败） -->
+  <nav class="nav" role="navigation" aria-label="页面导航">
+    <a href="#" class="active" data-page="home" aria-current="page">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3l9-8z" />
+        </svg>
+      </span> 首页
+    </a>
+    <a href="#" data-page="life">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4 4h16v2H4zm0 4h16v2H4zm0 4h10v2H4zm0 4h10v2H4z" />
+        </svg>
+      </span> 生平事迹
+    </a>
+    <a href="#" data-page="timeline">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 13h2a3 3 0 006 0h6a3 3 0 100-2h-6a3 3 0 10-6 0H3v2z" />
+        </svg>
+      </span> 大事年表
+    </a>
+    <a href="#" data-page="evaluation">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M5 21h14v-2H5v2zM7 17h10l2-8H5l2 8zm5-14l3 6H9l3-6z" />
+        </svg>
+      </span> 历史评价
+    </a>
+    <a href="#" data-page="gallery">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 19V5H3v14h18zM5 7h14v8l-4-4-3 3-2-2-5 5V7z" />
+        </svg>
+      </span> 图片资料
+    </a>
+  </nav>
+
+  <!-- 首页 -->
+  <section id="home" class="page active">
+    <div class="card hero">
+      <h1 class="title">慈禧太后：权力与争议的一生</h1>
+      <p class="subtitle">1835–1908 ｜ 晚清中国的实际统治者<sup class="cite"></sup></p>
+      <img class="safe-img" alt="慈禧太后肖像" referrerpolicy="no-referrer" loading="lazy"
+        src="WhatsApp Image 2025-09-01 at 15.22.08.jpeg" />
+      <div class="intro">
+        <p>慈禧太后（1835年11月29日—1908年11月15日），叶赫那拉氏，咸丰帝之妃、同治帝之生母。她在1861年通过辛酉政变与慈安太后、恭亲王等夺回主导权，自此长期垂帘听政，成为清末事实上的最高统治者<sup
+            class="cite"></sup>。</p>
+        <p>她先后经历同治、光绪两朝，几度还政与再执政，清廷暂见“同治中兴”，随后又经历甲午战争、戊戌变法与庚子事变等剧变。其统治近半个世纪，在中国女性政治人物中仅次于武则天<sup class="cite"></sup>。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 生平事迹 -->
+  <section id="life" class="page">
+    <div class="card">
+      <h1 class="title">慈禧太后生平事迹</h1>
+
+      <h2>早年与入宫</h2>
+      <p>道光十五年（1835年）生于京师（今北京），出自镶蓝旗满洲叶赫那拉氏一支。咸丰二年（1852年）通过八旗选秀入宫，赐号兰贵人，后晋懿嫔、懿妃、懿贵妃<sup class="cite"></sup>。</p>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="年轻时期慈禧（绘像/照片流传）" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.22.43.jpeg" />
+          <figcaption class="g-cap">年轻时期的慈禧（影像）</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="紫禁城" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.23.32.jpeg" />
+          <figcaption class="g-cap">紫禁城</figcaption>
+        </figure>
+      </div>
+
+      <h2>辛酉政变与垂帘听政</h2>
+      <p>第二次鸦片战争后局势动荡。1861年咸丰帝崩于热河，载淳即位为同治帝。慈禧与慈安、恭亲王等发动辛酉政变，肃顺等被处死，自此进入“二宫垂帘、亲王议政”局面<sup class="cite"></sup>。</p>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="同治皇帝画像" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.24.22.jpeg" />
+          <figcaption class="g-cap">同治皇帝</figcaption>
+        </figure>
+      </div>
+
+      <h2>同治中兴与洋务运动</h2>
+      <p>同治朝在恭亲王主持下推进洋务图强，设船政局、制造局等，整顿吏治、重用汉臣，社会局势一度缓和，被称为“同治中兴”<sup class="cite"></sup>。</p>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="福州船政" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.25.35.jpeg" />
+          <figcaption class="g-cap">洋务运动时期的船厂</figcaption>
+        </figure>
+      </div>
+
+      <h2>光绪时期与甲午战争</h2>
+      <p>同治早逝后，慈禧立侄载湉为光绪帝。1894年中日甲午战争清军失利，订《马关条约》，国势骤衰。关于挪用海军经费重修颐和园的争议，亦使其备受指责<sup class="cite"></sup>。</p>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="颐和园" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.27.42.jpeg" />
+          <figcaption class="g-cap">颐和园</figcaption>
+        </figure>
+      </div>
+
+      <h2>戊戌变法与政变</h2>
+      <p>1898年光绪帝任用康有为、梁启超推行变法，旋即被慈禧发动政变制止，光绪被幽禁，谭嗣同等“戊戌六君子”遇害<sup class="cite"></sup>。</p>
+
+      <h2>义和团与八国联军</h2>
+      <p>1900年庚子事变爆发，八国联军入侵北京，清廷西狩后签订《辛丑条约》，赔款与驻军进一步加重国家负担<sup class="cite"></sup>。</p>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="义和团事变场景" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.29.30.jpeg" />
+          <figcaption class="g-cap">义和团运动</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="八国联军1900" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.30.15.jpeg" />
+          <figcaption class="g-cap">八国联军入侵北京</figcaption>
+        </figure>
+      </div>
+
+      <h2>晚年新政与去世</h2>
+      <p>清末新政推行废科举、兴学堂、练新军等举措，但积弱已深。1908年光绪帝与慈禧先后去世，末代皇帝溥仪即位<sup class="cite"></sup>。</p>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="慈禧陵寝" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.31.19.jpeg" />
+          <figcaption class="g-cap">慈禧陵墓</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 大事年表 -->
+  <section id="timeline" class="page">
+    <div class="card">
+      <h1 class="title">大事年表</h1>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-year">1835年</div>
+          <p>出生于北京（叶赫那拉氏）。<sup class="cite"></sup></p>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1852年</div>
+          <p>入宫为兰贵人，后晋懿嫔、懿妃、懿贵妃。<sup class="cite"></sup></p>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1856年</div>
+          <p>生载淳（同治帝）。<sup class="cite"></sup></p>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1861年</div>
+          <p>辛酉政变后垂帘听政。<sup class="cite"></sup></p>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1875年</div>
+          <p>立载湉为光绪帝，再度垂帘。<sup class="cite"></sup></p>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1894—1895年</div>
+          <p>甲午战争战败。<sup class="cite"></sup></p>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1898年</div>
+          <p>戊戌政变，光绪被幽禁。<sup class="cite"></sup></p>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1900年</div>
+          <p>庚子事变与《辛丑条约》。<sup class="cite"></sup></p>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1908年</div>
+          <p>光绪与慈禧先后去世。<sup class="cite"></sup></p>
+        </div>
+      </div>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="故宫" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.33.32.jpeg" />
+          <figcaption class="g-cap">故宫</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="同治皇帝画像" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.24.07.jpeg" />
+          <figcaption class="g-cap">同治皇帝</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 历史评价 -->
+  <section id="evaluation" class="page">
+    <div class="card">
+      <h1 class="title">历史评价</h1>
+      <p>慈禧太后善断而好权，曾支持近代化尝试（洋务与新政），亦多次打断制度性改革（戊戌）并在关键战事中失据。其功过是非，历来争论不休。</p>
+      <div class="grid">
+        <div class="pos">
+          <h3>正面评价</h3>
+          <ul>
+            <li>能用曾国藩、左宗棠、李鸿章等重臣稳局。</li>
+            <li>推动洋务若干项目，出现“同治中兴”。</li>
+            <li>末期新政：废科举、兴学堂、练新军等。</li>
+            <li>维护疆域（如左宗棠收复新疆）。</li>
+          </ul>
+        </div>
+        <div class="neg">
+          <h3>负面评价</h3>
+          <ul>
+            <li>专断恋权，多次垂帘听政。</li>
+            <li>奢用与财政争议（如颐和园修缮）。</li>
+            <li>镇压戊戌变法，抑制制度改革。</li>
+            <li>庚子决策失当，致列强入侵与巨额赔款。</li>
+          </ul>
+        </div>
+      </div>
+      <h2>影响</h2>
+      <p>她延缓了清廷迅速崩解，也使制度性现代化屡遭中断；对近代中国国家能力与主权地位的演变影响深远。</p>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="福州船政局" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.34.13.jpeg" />
+          <figcaption class="g-cap">洋务运动尝试</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="义和团运动图像" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 16.29.30 (1).jpeg" />
+          <figcaption class="g-cap">庚子之变教训</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 图片资料 -->
+  <section id="gallery" class="page">
+    <div class="card">
+      <h1 class="title">图片资料</h1>
+      <h2>宫廷与人物</h2>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="慈禧太后肖像" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.22.08.jpeg" />
+          <figcaption class="g-cap">慈禧太后</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="同治皇帝画像" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.24.22.jpeg" />
+          <figcaption class="g-cap">同治皇帝</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="紫禁城景象" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.23.32.jpeg" />
+          <figcaption class="g-cap">紫禁城</figcaption>
+        </figure>
+      </div>
+
+      <h2>政治与战争</h2>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="洋务时期船厂" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.25.35.jpeg" />
+          <figcaption class="g-cap">洋务运动</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="义和团情景" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.29.30.jpeg" />
+          <figcaption class="g-cap">义和团运动</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="八国联军" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.30.15.jpeg" />
+          <figcaption class="g-cap">八国联军</figcaption>
+        </figure>
+      </div>
+
+      <h2>晚年与陵寝</h2>
+      <div class="gallery">
+        <figure class="g-item">
+          <img class="safe-img" alt="颐和园" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.27.42.jpeg" />
+          <figcaption class="g-cap">颐和园</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="慈禧陵墓外景" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.31.19.jpeg" />
+          <figcaption class="g-cap">慈禧陵墓</figcaption>
+        </figure>
+        <figure class="g-item">
+          <img class="safe-img" alt="故宫大门" loading="lazy" referrerpolicy="no-referrer"
+            src="WhatsApp Image 2025-09-01 at 15.33.32.jpeg" />
+          <figcaption class="g-cap">故宫</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <a class="to-top" href="#" aria-label="回到顶部">
+    <svg class="icon" viewBox="0 0 24 24" fill="#fff">
+      <path d="M12 4l-8 8h5v8h6v-8h5z" />
+    </svg>
+  </a>
+
+  <footer>
+    <p>本网页制作由S1C5班梁晋铨，李哲浩，林家俊，刘镇谊，彭建铵共同完成</p>
+  </footer>
+
+  <script>
+    // --- 图片稳健加载：失败时自动替换为本地SVG占位，且统一无引用者策略 ---
+    (function () {
+      const placeholder = `data:image/svg+xml;utf8,${encodeURIComponent(`
+        <svg xmlns='http://www.w3.org/2000/svg' width='600' height='360'>
+          <defs>
+            <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
+              <stop offset='0' stop-color='%23eee'/>
+              <stop offset='1' stop-color='%23ddd'/>
+            </linearGradient>
+          </defs>
+          <rect width='100%' height='100%' fill='url(%23g)'/>
+          <g fill='%23999' font-family='Arial,\u5FAE\u8F6F\u96C5\u9ED1,\u5B8B\u4F53' font-size='20'>
+            <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'>图片加载失败</text>
+          </g>
+        </svg>
+      `)}`;
+
+      document.querySelectorAll('img.safe-img').forEach(img => {
+        img.loading = img.getAttribute('loading') || 'lazy';
+        img.setAttribute('referrerpolicy', 'no-referrer');
+        img.addEventListener('error', () => {
+          if (img.src !== placeholder) img.src = placeholder;
+        }, { once: true });
+      });
+    })();
+
+    // --- 导航切换 ---
+    (function () {
+      const tabs = document.querySelectorAll('.nav a');
+      const pages = document.querySelectorAll('.page');
+      tabs.forEach(a => a.addEventListener('click', e => {
+        e.preventDefault();
+        tabs.forEach(x => x.classList.remove('active'));
+        pages.forEach(p => p.classList.remove('active'));
+        a.classList.add('active');
+        const id = a.getAttribute('data-page');
+        document.getElementById(id).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }));
+    })();
+
+    // --- 回到顶部按钮 ---
+    (function () {
+      const btn = document.querySelector('.to-top');
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) btn.classList.add('visible');
+        else btn.classList.remove('visible');
+      });
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+</body>
+
+</html>
